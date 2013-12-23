@@ -86,7 +86,8 @@ foreach $MOKA (@MOKA) {
 		}
 		}
 		
-
+# as above files are split and a new array created with named variables.
+#it is very important to ensure the correct information is pushed into the arrays and the correct text is used for the header filter.
 foreach $NEXTGENE (@NEXTGENE){
 my @p = split (/,/,$NEXTGENE);
 ($Index,$ReferencePos,$ChromPos,$Gene,$GeneDir,$mRNA,$RNAAcc,$CDS,$ProteinAcc,$Chr,$SegmentDis,$SegmentPos,$ReferenceNuc,$Coverage,$Score,$ARatio,$CRatio,$GRatio,$TRatio,$InsRatio,$DelRatio,$SNPdbxref,$Genotype, $Mutation,$AAChange, $Concat,$VLookup,$MAF,$SNPorNOT) = @p;
@@ -107,9 +108,7 @@ my @p = split (/,/,$NEXTGENE);
  my@uniquediff = uniq(@all);
  my $uniquediff;
  ($uniquediff)=@uniquediff;
- # a new array is created containing and the unique tool used to remove duplicates. as discussed above this will contain every single file being compared including the ones that are in both files.
- 
- #WILL THIS METHOD CATCH EVERY ENTRY FROM BOTH FILES???
+ # a new array is created containing and the unique tool used to remove duplicates. as discussed above the @all array will contain every single line being compared including the ones that are in both files.
  
  #then to show only entries that are in one file and not the other. grep is used to search the @same array for each entry of the uniquediff array. If a line is not in the same array then it will be printed as it is in one file but not the other.
  print "DIFFERENT: \n";
@@ -117,13 +116,5 @@ my @p = split (/,/,$NEXTGENE);
   print $uniquediff if ! grep (/$uniquediff/, @same)
 };
 
- # foreach $NEXTGENE (@NEXTGENE){
-  # my @sss = split (/,/,$NEXTGENE);
-		 # ($Index,$ReferencePos,$ChromPos,$Gene,$GeneDir,$mRNA,$RNAAcc,$CDS,$ProteinAcc,$Chr,$SegmentDis,$SegmentPos,$ReferenceNuc,$Coverage,$Score,$ARatio,$CRatio,$GRatio,$TRatio,$InsRatio,$DelRatio,$SNPdbxref,$Genotype, $Mutation,$AAChange, $Concat,$VLookup,$MAF,$SNPorNOT) = @sss;
-		# my $ChrPos = "$Chr.$ChromPos\n";
-		# foreach $same (@same){
- # if push @diff, "$ChrPos\n";
-# };
-# print @diff;
 close (INPUT);
 close (INPUT2);
