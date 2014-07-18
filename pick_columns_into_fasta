@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+
+#This file is designed to pull specific columns from a spreadsheet and put them into a new file in fasta format which can be read by BLAT.
+#import the Tie::File module which allows a file to be read one line at a time
+use Tie::File;
+use Fcntl;
+use strict;
+use warnings;
+
+ 
+#define variables (an array and then all columns in the spreadsheet)
+my (@primers,$primers);
+my $Gene;
+my $Exon;
+my $Chromosomes;
+my $Primername;
+my $Newname;
+my $Primerseq;
+my $PCRcond;
+my $Modification;
+my $Ampsize;
+my $Stock;
+my $Tray;
+my $Gridref;
+my $SNPCheck;
+my $datesnpcheck;
+my $SNPdbbuild;
+my $SNP;
+
+# open the 
+tie @primers, 'Tie::File', "/home/aled/Documents/primerdb/ACTA.csv";
+open (MYFILE, '>>/home/aled/Documents/primerdb/primersequences.fa');
+
+foreach $primers (@primers) {
+	my @s = split(/,/, $primers);
+	($Gene,$Exon,$Chromosomes,$Primername,$Newname,$Primerseq,$PCRcond,$Modification,$Ampsize,$Stock,$Tray,$Gridref,$SNPCheck,$datesnpcheck,$SNPdbbuild,$SNP) = @s;
+	print MYFILE "> $Primername \n $Primerseq \n";
+	} untie @primers;
